@@ -1,0 +1,23 @@
+# Ignore everything
+*
+
+# Except for these files
+!template.yml
+!lambda_updatevisits.py
+!test_lambda.py
+
+# You might also want to include the .gitignore file itself
+!.gitignore
+
+# Exclude other typical files and folders
+# For example, Python caches and virtual environment folders
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+.virtualenv/
+.idea/
+.vscode/
+.DS_Store

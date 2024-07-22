@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Globals:
+  Function:
+    Timeout: 3
+    MemorySize: 128
+  Api:
+    Cors:
+      AllowMethods: "'PUT,OPTIONS'"
+      AllowHeaders: "'content-type'"
+      AllowOrigin: "'*'"
+
+Resources:
+  VisitCounterFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      #CodeUri - where code is saved
+      Handler: lambda_updatevisits.lambda_handler
+      Runtime: python3.8
+      Timeout: 10
+      Environment:
+        Variables:
+          TABLE_NAME: VisitCounter
+          DYNAMODB_ENDPOINT: http://host.docker.internal:8000
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: VisitCounter
+      Events:
+        VisitCounterApi:
+          Type: Api
+          Properties:
+            Path: /update
+            Method: put
